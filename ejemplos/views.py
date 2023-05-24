@@ -418,6 +418,44 @@ def crear_orden_compra(request):
         detalle_form = DetalleOrdenCompraForm()
     return render(request, 'ejemplos/crear_orden_compra.html', {'orden_form': orden_form, 'detalle_form': detalle_form})
 
+
+
+def add_detail_order_view(request,id_order):
+    order_count  = OrdenCompra.objects.filter(pk=id_order).count()
+    if order_count < 1:
+        messages.add_message(request, messages.INFO, 'Upss, hubo un error')
+        return redirect('check_group_main')        
+    product_list = Producto.objects.all()
+    return render(request, 'ejemplos/add_detail_order_view.html', {'id_order': id_order,'product_list':product_list})
+
+
+
+def add_detail_order(request,id_order):
+    order_count  = OrdenCompra.objects.filter(pk=id_order).count()
+    if order_count < 1:
+        messages.add_message(request, messages.INFO, 'Upss, hubo un error')
+        return redirect('check_group_main')        
+    if request.method == 'POST':
+        product_id =  request.POST.get('product_id')        
+        cantidad =  request.POST.get('cantidad')
+        precio_unitario =  request.POST.get('precio_unitario')
+        total =  1#int(cantidad) * int(precio_unitario)
+        #falta validar lo que llega
+
+        detalle_save = DetalleOrdenCompra(
+            orden_compra_id = id_order,
+            producto_id=  product_id,
+            cantidad =  cantidad,
+            precio_unitario =  precio_unitario,
+        )
+        detalle_save.save()
+        messages.add_message(request, messages.INFO, 'asjhakjshk')
+        return redirect('lista_ordenes_compra')
+
+    else:
+        messages.add_message(request, messages.INFO, 'EL  método de envío no corresponde')
+        return redirect('lista_ordenes_compra')
+
 def editar_orden_compra(request, orden_id):
     orden = get_object_or_404(OrdenCompra, pk=orden_id)
     if request.method == 'POST':

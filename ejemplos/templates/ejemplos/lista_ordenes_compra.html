@@ -8,6 +8,7 @@
   <p>Total: {{ orden.detalles.first.total }}</p>
   <a href="{% url 'editar_orden_compra' orden.id %}">Editar</a>
   <a href="{% url 'eliminar_orden_compra' orden.id %}">Eliminar</a>
+  <a href="{% url 'add_detail_order_view' orden.id %}">añadir</a>
   <hr>
 {% empty %}
   <p>No hay órdenes de compra disponibles.</p>

@@ -1,0 +1,14 @@
+<form method="POST" action="{% url 'add_detail_order' id_order %}">
+    {% csrf_token %}
+    <input type="text" name="id_order" value="{{id_order}}"/>
+    <select name="product_id" required>
+        <option value="">Debe seleccionar uno</option>
+        {% for p in product_list %}
+            <option value="{{p.id}}">{{p.nombre}}</option>
+        {% endfor %}
+
+    </select>
+    <input type="text" name="cantidad" value=""/>
+    <input type="text" name="precio_unitario" value=""/>
+    <input type="submit" value="Crear orden de compra">
+</form>

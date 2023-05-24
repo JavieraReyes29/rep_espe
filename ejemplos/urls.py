@@ -45,6 +45,13 @@ ejemplos_urlpatterns = [
     path('editar_orden_compra/<int:orden_id>/', views.editar_orden_compra, name='editar_orden_compra'),
     path('eliminar_orden_compra/<int:orden_id>/', views.eliminar_orden_compra, name='eliminar_orden_compra'),
     #path('detalle_orden_compra/<int:orden_id>/', detalle_orden_compra, name='detalle_orden_compra'),
+
+
+    path('add_detail_order/<id_order>/',views.add_detail_order,name="add_detail_order"),
+    path('add_detail_order_view/<id_order>/',views.add_detail_order_view,name="add_detail_order_view"),
+
+
+
 ]
 
     
