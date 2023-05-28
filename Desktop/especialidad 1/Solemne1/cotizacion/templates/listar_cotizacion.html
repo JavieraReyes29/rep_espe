@@ -1,0 +1,24 @@
+{% extends "administrator/index_main.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listar Cotizaciones</title>
+</head>
+<body>
+    <h1>Listar Cotizaciones</h1>
+    <ul>
+        {% for orden in ordenes %}
+        <li>
+            <a href="{% url 'ver_cotizacion' orden_id=orden.id %}">Cotizaciones {{ orden.id }}</a> - Cliente: {{ orden.cliente}}
+        </li>
+        {% empty %}
+        <li>No hay Cotizaciones.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'crear_cotizacion' %}">Crear Cotizacion</a>
+</body>
+</html>
+{% endblock %}

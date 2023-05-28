@@ -1,0 +1,56 @@
+{% extends "administrator/index_main.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Cotizacion</title>
+</head>
+<body>
+    
+    <h2>{{ orden }}</h2>
+    <h3>Fecha de Creación: {{ orden.fecha }}</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in orden.items.all %}
+            <tr>
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.subtotal }}</td>
+                <td>
+                    <a href="{% url 'eliminar' item_id=item.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay items en esta orden de compra,Favor ingrese Items.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total: {{ orden.calcular_total }}</p>
+    <br>
+    <a href="{% url 'ola' orden_id=orden.id %} " class="btn btn-success form-control">Agregar Productos</a>
+    <br><br>
+    <a href="{% url 'listar_cotizacion' %} " class="btn btn-danger form-control">Volver a Cotizacion</a>
+    <br><br>
+    <a href="{% url 'eliminar_cotizacion' orden_id=orden.id%} " class="btn btn-danger form-control">Eliminar Cotizacion</a>
+    <br><br>
+    <a href="{% url 'generar_reporte_cotizaciones' %}">Generar Reporte de Cotizaciones</a>
+    </a>
+
+
+</body>
+</html>
+{% endblock %}
